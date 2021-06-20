@@ -14,6 +14,12 @@
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+    <style>
+        .ck-editor__editable_inline{
+            min-height: 300px;
+        }
+    </style>
+
   @yield('custom_css')
 </head>
 
@@ -162,7 +168,7 @@
           <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{auth()->user()->name}}</a>
         </div>
       </div>
 
@@ -323,6 +329,67 @@
             $(this).closest('.has-treeview').addClass('menu-open');
         }
     });
+</script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script> -->
+
+
+    <script src="/ckeditor5/build/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+
+ClassicEditor
+    .create( document.querySelector( '#content' ), {
+        ckfinder: {
+            uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+        },
+        image: {
+            // Configure the available styles.
+            toolbar: [
+                'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+                '|',
+                'resizeImage',
+                '|',
+                'imageTextAlternative'
+            ],
+            styles: [
+                'alignLeft', 'alignCenter', 'alignRight'
+            ]
+        },
+        toolbar: {
+					items: [
+						'heading',
+						'|',
+						'bold',
+						'italic',
+						'link',
+						'bulletedList',
+						'numberedList',
+						'|',
+						'outdent',
+						'indent',
+						'alignment',
+						'|',
+						'blockQuote',
+						'insertTable',
+						'undo',
+						'redo',
+						'CKFinder',
+						'mediaEmbed'
+					]
+    } })
+    .catch( function( error ) {
+        console.error( error );
+    } );
+
+    ClassicEditor
+    .create( document.querySelector( '#description' ), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+    } )
+    .catch( function( error ) {
+        console.error( error );
+    } );
+
 </script>
 @yield('custom_js')
 </body>
