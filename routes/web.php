@@ -1,8 +1,10 @@
 <?php
 
-Route::get('/', function(){
-    return view('welcome');
-})->name('home');
+Route::get('/', 'PostController@index')->name('home');
+Route::get('/article/{slag}', 'PostController@show')->name('posts.single');
+Route::get('/category/{slag}', 'CategoryController@show')->name('categories.single');
+Route::get('/tags/{slag}', 'TagsController@show')->name('tags.single');
+Route::get('/search', 'SearchController@index')->name('search');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function(){
     Route::get('/', 'MainController@index')->name('admin.index');
@@ -18,5 +20,7 @@ Route::group(['middleware' => 'guest'], function(){
     Route::post('/login', 'UserController@login')->name('login');
 });
 
-
 Route::get('/logout', 'UserController@logout')->name('logout')->middleware('auth');
+
+
+

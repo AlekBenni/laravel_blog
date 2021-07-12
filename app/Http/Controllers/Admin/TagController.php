@@ -42,7 +42,6 @@ class TagController extends Controller
             'title' => 'required'
         ]);
         $tag = Tag::find($id);
-        //$tag->slag = null;
         $tag->update($request->all());
         return redirect()->route('tags.index')->with('success', 'Тэг изменён');
     }
@@ -50,6 +49,9 @@ class TagController extends Controller
     public function destroy($id)
     {
         $tag = Tag::find($id);
+        if($tag->posts->count()){
+            return redirect()->route('tags.index')->with('error', 'Тэг имеет статьи');
+        }
         $tag->delete();
         return redirect()->route('tags.index')->with('success', 'Тэг удалён');
     }

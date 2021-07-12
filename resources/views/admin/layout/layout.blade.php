@@ -31,7 +31,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="../../index3.html" class="nav-link">Home</a>
@@ -290,6 +290,13 @@
                 {{session('success')}}
             </div>
             @endif
+
+            @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+            @endif
+
     </div>
         @yield('content')
     </div>
@@ -320,6 +327,8 @@
 <script src="/js/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/js/dist/js/demo.js"></script>
+
+<script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
     $('.nav-sidebar a').each(function(){
         let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
@@ -329,7 +338,14 @@
             $(this).closest('.has-treeview').addClass('menu-open');
         }
     });
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+
 </script>
+
+
+
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
     <script src="/ckfinder/ckfinder.js"></script> -->
 

@@ -42,7 +42,6 @@ class CategoryController extends Controller
             'title' => 'required'
         ]);
         $category = Category::find($id);
-        //$category->slag = null;
         $category->update($request->all());
         return redirect()->route('categories.index')->with('success', 'Категория изменена');
     }
@@ -50,6 +49,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        if($category->posts->count()){
+            return redirect()->route('categories.index')->with('error', 'Категория имеет статьи');
+        }
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Категория удалена');
     }
